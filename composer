@@ -1,0 +1,19 @@
+#!/bin/sh
+
+docker run \
+    --rm \
+    -it \
+    --pid=host \
+    --network=host \
+    --sig-proxy=true \
+    -u $(id -u):$(id -g) \
+    -v ${HOME}:${HOME} \
+    -v ${HOME}:/root \
+    -v /tmp:/tmp \
+    -v ${PWD}:${PWD} \
+    -e HOME=${HOME} \
+    -w ${PWD} \
+    composer:1.10 \
+    composer $@
+
+return $?

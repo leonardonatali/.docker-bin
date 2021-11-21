@@ -1,0 +1,19 @@
+#!/bin/sh
+
+docker run \
+    --rm \
+    -it \
+    --network=host \
+    --pid=host \
+    -e HOME=${HOME} \
+    -v ${HOME}:${HOME} \
+    -v ${HOME}:/root \
+    -v /tmp:/tmp \
+    -v ${PWD}:${PWD} \
+    -w ${PWD} \
+    -u $(id -u):$(id -g) \
+    --sig-proxy=true \
+    node:14-alpine \
+    node $@
+
+return $?
